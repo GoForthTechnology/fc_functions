@@ -20,14 +20,7 @@ exports.writeClientUID = onDocumentCreated(
     const practitionerID = data.practitionerID;
     const clientID = data.clientID;
 
-
-    const docPath = `users/${practitionerID}/clients/${clientID}`;
-    const client = await db.doc(docPath).get();
-    const doc = client?.data();
-    if (doc == null) {
-      console.log("No data found for path: " + docPath);
-      return;
-    }
-    doc.clientUID = data.id;
-    await db.doc(docPath).set(doc);
+    await db.doc(`users/${practitionerID}/clients/${clientID}`).set({
+      "clientUID": event.params.profileID,
+    }, {merge: true});
   });
