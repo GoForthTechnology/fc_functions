@@ -21,6 +21,6 @@ exports.writeClientUID = onDocumentCreated(
     const clientID = data.clientID;
 
     await db.doc(`users/${practitionerID}/clients/${clientID}`).set({
-      "clientUID": event.params.profileID,
+      "uid": event.params.profileID,
     }, {merge: true});
   });
